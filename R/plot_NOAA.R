@@ -41,11 +41,12 @@ plot_NOAA <- function(NOAA, points = NULL) {
 
   base <- ggplot2::ggplot() +
     stars::geom_stars(data = NOAA [1]) +
-    ggplot2::coord_sf(xlim =c(-180, 180), ylim = c(-90, 90)) +
+    ggplot2::coord_sf(xlim =c(-180, 180), ylim = c(-90, 90), crs = sf::st_crs(3857)) +
     ggplot2::scale_x_discrete(expand = c(0, 0)) +
     ggplot2::scale_y_discrete(expand = c(0, 0)) +
     ggplot2::scale_fill_viridis_c(xc) +
     ggplot2::labs(x = NULL, y = NULL)
+
   if (!is.null(points)) {
     sf::st_coordinates(points$geometry)
     base +
