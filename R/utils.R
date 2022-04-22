@@ -98,7 +98,6 @@ clip_lat <- function(obj, epsg, limit = 0) {
   # epsg check
   epsg <- epsg_check(obj, epsg)
 
-
   if (inherits(obj, "stars")) {
 
     # for stars object we first need cropping and then re-projection
@@ -117,8 +116,8 @@ clip_lat <- function(obj, epsg, limit = 0) {
     sf::st_crs(box) <- sf::st_crs(obj)
     # cropping
     obj <- sf::st_crop(obj, box)
-    # re-projection (onyl sf_transform seems to work in combination with ggplot)
-    sf::st_transform(obj, epsg)
+    # re-projection
+    stars::st_warp(obj, crs = epsg)
 
   } else if (inherits(obj, "sf")) {
 
